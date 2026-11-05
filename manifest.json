@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "purepulsar.power",
+  "name": "Power Chip",
+  "version": "1.0.0",
+  "author": "purepulsar",
+  "description": "Omarchy power panel with a compact battery percentage chip on the bar",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Power Chip",
+    "description": "Battery percentage in a level-colored frame, with the full power panel",
+    "category": "System",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.power"
+  }
+}
