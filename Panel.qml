@@ -30,10 +30,10 @@ Panel {
   readonly property real openPanelIndicatorWidth: root.labelMode ? labelButton.labelWidth : 0
   // Colors read from the active theme's colors.toml so the frame follows it.
   property var themeColors: ({})
-  // The frame around the percentage: accent while charging, otherwise a
+  // The frame around the percentage: solid green while charging, otherwise a
   // level band (red below 20%, yellow below 50%, green above).
   readonly property color percentageFrameColor: {
-    if (root.charging) return Commons.Color.accent
+    if (root.charging) return root.themeColors.green || "#9ece6a"
     var percent = Math.round(root.batteryFraction * 100)
     if (percent < 20) return root.themeColors.red || Commons.Color.urgent
     if (percent < 50) return root.themeColors.yellow || root.themeColors.orange || "#e0af68"
@@ -383,9 +383,13 @@ Panel {
       width: Math.min(parent.width, parent.labelWidth + Style.space(12))
       height: Style.space(16)
       radius: Style.space(4)
-      color: "transparent"
+      // Charging fills the frame solid; otherwise it stays a hollow outline.
+      color: root.charging ? root.percentageFrameColor : "transparent"
       border.width: Math.max(1, Style.spaceReal(1.5))
       border.color: root.percentageFrameColor
+      Behavior on color {
+        ColorAnimation { duration: Style.duration(200) }
+      }
       Behavior on border.color {
         ColorAnimation { duration: Style.duration(200) }
       }
@@ -398,12 +402,18 @@ Panel {
       anchors.verticalCenterOffset: labelButton.figureOffset / 2
       textFormat: Text.PlainText
       text: root.percentageLabel
-      color: root.bar ? root.bar.barForeground : Commons.Color.foreground
+      // Dark ink keeps contrast against the solid green charging fill.
+      color: root.charging
+        ? (root.themeColors.background || "#1a1b26")
+        : (root.bar ? root.bar.barForeground : Commons.Color.foreground)
       font.family: labelButton.fontFamily
       font.pixelSize: labelButton.fontSize
       font.bold: true
       scale: labelButton.pressScale
       renderType: Text.NativeRendering
+      Behavior on color {
+        ColorAnimation { duration: Style.duration(200) }
+      }
     }
   }
 

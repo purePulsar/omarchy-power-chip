@@ -8,10 +8,11 @@ inside a rounded outline whose color follows the level.
 
 ## Features
 
-- Bar shows the bare charge number (no `%`, no battery glyph) in a rounded,
-  border-only frame.
+- Bar shows the bare charge number (no `%`, no battery glyph) in a rounded
+  frame — an outline normally, filled solid while charging.
 - Frame color follows the level: **red below 20%**, **yellow 20–49%**,
-  **green 50% and up**, and the theme accent while charging.
+  **green 50% and up**. While charging it is always theme green, filled solid,
+  with dark digits for contrast.
 - Colors come from the active theme's `colors.toml` and refresh when the
   theme changes.
 - Click opens the full Power panel (power profiles, battery readings, system
@@ -68,7 +69,8 @@ Mirror `purepulsar.power/Panel.qml` into `~/.config/omarchy/plugins/` after
 enabling, or edit the installed copy directly. The level thresholds live in
 `percentageFrameColor`, and the frame's size and border weight in the
 `Rectangle` under `labelButton`. Frame colors use the theme keys `red`,
-`yellow`, `green`, and `accent`.
+`yellow`, `green`, and `background` (the dark digit color on the solid
+charging fill).
 
 ## Uninstall
 
